@@ -1,3 +1,4 @@
+import 'package:explore/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,16 +8,29 @@ void main() {
 /// {@template explore_app}
 /// The ExploreApp widget is the root of the application.
 /// {@endtemplate}
-class ExploreApp extends StatelessWidget {
+class ExploreApp extends StatefulWidget {
   /// {@macro explore_app}
   const ExploreApp({super.key});
+
+  @override
+  State<ExploreApp> createState() => _ExploreAppState();
+}
+
+class _ExploreAppState extends State<ExploreApp> {
+  late final AppTheme _appTheme;
+
+  @override
+  void initState() {
+    super.initState();
+    _appTheme = AppTheme();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: _appTheme.light,
+      darkTheme: _appTheme.dark,
       home: const MyHomePage(),
     );
   }
@@ -30,7 +44,6 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
       appBar: AppBar(
         title: const Text('Explore'),
       ),
