@@ -23,6 +23,7 @@ class AppTheme {
   /// Returns the dark theme which is based on [FlexScheme.deepBlue].
   ThemeData get dark {
     return FlexThemeData.dark(
+      useMaterial3: true,
       scheme: FlexScheme.deepBlue,
     );
   }
@@ -30,6 +31,7 @@ class AppTheme {
   /// Returns the light theme which is based on [FlexScheme.deepBlue].
   ThemeData get light {
     return FlexThemeData.light(
+      useMaterial3: true,
       scheme: FlexScheme.deepBlue,
     );
   }
