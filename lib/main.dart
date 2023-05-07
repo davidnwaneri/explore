@@ -28,6 +28,7 @@ class _ExploreAppState extends State<ExploreApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: _appTheme.light,
       darkTheme: _appTheme.dark,
