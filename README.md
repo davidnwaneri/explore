@@ -1,7 +1,7 @@
 # explore
 
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
-[![Codemagic build status](https://api.codemagic.io/apps/6459ea6c2927ae0d2b09bef7/flutter-test/status_badge.svg)](https://codemagic.io/apps/<app-id>/<workflow-id>/latest_build)
+[![Codemagic build status](https://api.codemagic.io/apps/6459ea6c2927ae0d2b09bef7/flutter-test/status_badge.svg)](https://codemagic.io/apps/6459ea6c2927ae0d2b09bef7/flutter-test/latest_build)
 [![codecov](https://codecov.io/gh/davidnwaneri/explore/branch/main/graph/badge.svg?token=3jlBzBNrwN)](https://codecov.io/gh/davidnwaneri/explore)
 
 A new Flutter project.
