@@ -42,18 +42,35 @@ workflows:
         script: flutter pub get
       - name: Run flutter analyze
         script: flutter analyze
-      - name: Run flutter unit test
+      - name: Run flutter test
         script: |
-          HOMEBREW_NO_AUTO_UPDATE=1 brew install lcov
-          flutter test --coverage --machine > test-results.json  
+                  # Install lcov if not already installed
+                  if ! command -v lcov &> /dev/null
+                  then echo "lcov is not installed. Installing..."
+                  HOMEBREW_NO_AUTO_UPDATE=1 brew install lcov
+                  else
+                  echo "lcov is already installed"
+                  fi
+                  
+                  # Run the tests and generate the coverage report
+          #           Redirect all output to test-results.json
+          #          flutter test --coverage --machine > test-results.json
+                  flutter test --coverage
           
-          code_coverage=$(lcov --list $CM_BUILD_DIR/coverage/lcov.info | sed -n "s/.*Total:|\(.*\)%.*/\1/p")
+          # Extract the code coverage percentage
+                  code_coverage=$(lcov --list $CM_BUILD_DIR/coverage/lcov.info | sed -n "s/.*Total:|\(.*\)%.*/\1/p")
           
-          echo "Code Coverage: ${code_coverage}% "
-          if (( $(echo "$code_coverage < $CODE_COVERAGE_TARGET" | bc) ))
-            then { echo "code coverage is less than expected" && exit 1; }
-          fi
-        test_report: test-results.json
+          # Print the code coverage percentage to the console
+                  echo "Code Coverage: ${code_coverage}% "
+
+          # Print the code coverage target
+                  echo "Code Coverage Target: ${CODE_COVERAGE_TARGET}% "
+          
+          # Check if the code coverage is less than the target
+                  if (( $(echo "$code_coverage < $CODE_COVERAGE_TARGET" | bc) ))
+                  then { echo "code coverage is less than $CODE_COVERAGE_TARGET" && exit 1; }
+                  fi
+      #        test_report: test-results.json
       - name: Codecov upload
         script: |
           curl -Os https://uploader.codecov.io/latest/macos/codecov
