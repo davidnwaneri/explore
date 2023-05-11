@@ -49,12 +49,22 @@ workflows:
             then echo "lcov is not installed. Installing..."
             HOMEBREW_NO_AUTO_UPDATE=1 brew install lcov
           else
-            echo "lcov is already installed"
+            echo "lcov is already installed, proceeding..."
           fi
           
           # Run the tests and generate the coverage report
           # Redirect all output to test-results.json
-          flutter test --coverage --machine > test-results.json || exit 1
+          flutter test --coverage --machine > test-results.json
+          
+          # Assign the exit code to a variable
+          exit_code=$?
+          
+          if [[ $exit_code != 0 ]]; then
+            echo "Error: One or more test failed with exit code $exit_code"
+            exit $exit_code
+          else
+            echo "Success: All test passed"
+          fi
           
           # Extract the code coverage percentage
           code_coverage=$(lcov --list $CM_BUILD_DIR/coverage/lcov.info | sed -n "s/.*Total:|\(.*\)%.*/\1/p")
