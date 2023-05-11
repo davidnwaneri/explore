@@ -14,16 +14,13 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const ExploreApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    final appBar = find.byType(AppBar);
+    final center = find.byType(Center);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    expect(appBar, findsOneWidget);
+    expect(center, findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that our title is present.
+    expect(find.text('Explore'), findsNWidgets(2));
   });
 }
