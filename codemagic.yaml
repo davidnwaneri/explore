@@ -55,7 +55,7 @@ workflows:
           # Run the tests and generate the coverage report
           # Redirect all output to test-results.json
           # flutter test --coverage --machine > test-results.json
-          flutter test --coverage
+          flutter test --coverage > test-results.json
           
           # Extract the code coverage percentage
           code_coverage=$(lcov --list $CM_BUILD_DIR/coverage/lcov.info | sed -n "s/.*Total:|\(.*\)%.*/\1/p")
@@ -70,7 +70,7 @@ workflows:
           if (( $(echo "$code_coverage < $CODE_COVERAGE_TARGET" | bc) ))
             then { echo "code coverage is less than $CODE_COVERAGE_TARGET" && exit 1; }
           fi
-      #        test_report: test-results.json
+        test_report: test-results.json
       - name: Codecov upload
         script: |
           curl -Os https://uploader.codecov.io/latest/macos/codecov
