@@ -42,10 +42,10 @@ workflows:
         script: flutter pub get
       - name: Run flutter analyze
         script: flutter analyze
-      - name: Run flutter test
+      - name: Run flutter unit test
         script: |
           HOMEBREW_NO_AUTO_UPDATE=1 brew install lcov
-          flutter test --coverage --machine | tee test-results.json  
+          flutter test --coverage --machine > test-results.json  
           
           code_coverage=$(lcov --list $CM_BUILD_DIR/coverage/lcov.info | sed -n "s/.*Total:|\(.*\)%.*/\1/p")
           
