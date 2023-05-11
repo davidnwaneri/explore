@@ -54,8 +54,7 @@ workflows:
           
           # Run the tests and generate the coverage report
           # Redirect all output to test-results.json
-          # flutter test --coverage --machine > test-results.json
-          flutter test --coverage > test-results.json
+          flutter test --coverage --machine > test-results.json || exit 1
           
           # Extract the code coverage percentage
           code_coverage=$(lcov --list $CM_BUILD_DIR/coverage/lcov.info | sed -n "s/.*Total:|\(.*\)%.*/\1/p")
