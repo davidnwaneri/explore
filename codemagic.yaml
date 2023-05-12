@@ -34,7 +34,7 @@ workflows:
           if [[ $COMMIT_MSG == *"skiptestci"* ]]
             then
               echo "Commit includes 'skiptestci' in it's message, exiting..."
-              exit 1
+              exit 0
             else 
               echo "Commit message does not include 'skiptestci', moving forward..."
           fi
